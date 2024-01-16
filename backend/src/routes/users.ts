@@ -4,7 +4,7 @@ import cron from 'node-cron';
 import nodemailer from 'nodemailer';
 import User from '../models/user';
 import { generateToken } from '../utils/authUtils';
-
+import "dotenv/config";
 
 const router = express.Router();
 
@@ -21,8 +21,8 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: true,
   auth: {
-    user: "madebyaugus@gmail.com",
-    pass: "blmv pcxm hsaf bczf",
+    user: process.env.NODEMAILER_USER,
+    pass: process.env.NODEMAILER_PASSWORD,
   },
 });
 
