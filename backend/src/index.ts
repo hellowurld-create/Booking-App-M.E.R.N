@@ -1,12 +1,12 @@
-import express from 'express';
+import cookieParser from "cookie-parser";
 import cors from 'cors';
 import "dotenv/config";
+import express from 'express';
 import mongoose from 'mongoose';
-import cookieParser from "cookie-parser";
 
-import userRoutes from './routes/users';
-import authRoutes from './routes/auth';
 import path from 'path';
+import authRoutes from './routes/auth';
+import userRoutes from './routes/users';
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_CONN_STRING as string);
@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: process.env.FRONTEND_URL || "",
     credentials: true,
   })
 );
