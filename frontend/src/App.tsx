@@ -1,4 +1,3 @@
-import React from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Layouts } from './layout/Layouts';
 import Register from './pages/Register'
