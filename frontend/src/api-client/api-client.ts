@@ -16,7 +16,7 @@ export const register = async (formData: RegisterFormData) => {
   const responseBody = await response.json();
 
   if (!response.ok) {
-    throw new Error(responseBody.message);
+    throw new Error(`Registration failed: ${responseBody.message}`);
   }
 };
 
@@ -28,15 +28,20 @@ export const logIn = async (formData: LogInFormData) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(formData),
-  })
+  });
 
-   const body = await response.json();
+  try {
+    const body = await response.json();
 
-  if (!response.ok) {
-    throw new Error(body.message);
-  } 
-  return body;
-}
+    if (!response.ok) {
+      throw new Error(`Login failed: ${body.message}`);
+    }
+
+    return body;
+  } catch (error) {
+    throw new Error(`Login failed: ${error.message}`);
+  }
+};
 
 export const validateToken = async () => {
   const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
@@ -44,7 +49,7 @@ export const validateToken = async () => {
   });
 
   if (!response.ok) {
-    throw new Error("Token invalid");
+    throw new Error("Token validation failed");
   }
 
   return response.json();
@@ -53,9 +58,10 @@ export const validateToken = async () => {
 export const logOut = async () => {
   const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
     credentials: "include",
-    method: "POST"
+    method: "POST",
   });
+
   if (!response.ok) {
-    throw new Error("Error during sign out");
+    throw new Error("Logout failed");
   }
-}
+};
