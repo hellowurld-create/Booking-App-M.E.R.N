@@ -11,7 +11,7 @@ import authRoutes from './routes/auth';
 mongoose.connect(process.env.MONGODB_CONN_STRING as string);
 
 const app = express();
-const PORT = process.env.PORT || 6000;
+
 
 app.use(cookieParser());
 app.use(express.json());
@@ -27,6 +27,6 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(8000, () => {
+  console.log(`Server running on http://localhost:8000`);
 });

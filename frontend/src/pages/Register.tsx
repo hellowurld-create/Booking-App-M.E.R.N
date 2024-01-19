@@ -28,7 +28,7 @@ const Register = () => {
 
   const mutation = useMutation(apiClient.register, {
     onSuccess: async () => {
-      showToast({ message: "Registration Success!, check email to verify your account", type: "SUCCESS" });
+      showToast({ message: "Registration Success!", type: "SUCCESS" });
       await queryClient.invalidateQueries("validateToken");
       navigate("/");
     },
@@ -160,12 +160,15 @@ const Register = () => {
               className="mt-1 w-full rounded-md
             border-gray-200 bg-white py-3 px-2 text-sm
             text-gray-700 shadow-sm border"
-               {...register("email", { required: "Email Address is required" })}
+               {...register("email", { required: "Email Address is required",pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: "Invalid email address",
+               },
+               })}
                   />
                    {errors.email && (
                     <span className="text-primary font-semibold text-1xl">{ errors.email.message }</span>
-                  )}
-                 
+                  )} 
           </div>
                             
           <div className="col-span-6">
@@ -180,8 +183,8 @@ const Register = () => {
                 {...register("phoneNo", {
             required: "Phone Number is required",
             pattern: {
-              value: /^[0-9]{10}$/, 
-              message: "Invalid phone number",
+               value: /^[0-9]{11}$/,
+               message: "Invalid phone number",
             },
           })}
                   />
