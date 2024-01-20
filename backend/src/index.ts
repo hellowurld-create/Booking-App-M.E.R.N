@@ -3,6 +3,7 @@ import cors from 'cors';
 import "dotenv/config";
 import express from 'express';
 import mongoose from 'mongoose';
+const port = process.env.PORT || "";
 
 import path from 'path';
 import authRoutes from './routes/auth';
@@ -30,6 +31,6 @@ app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
-app.listen(8000, () => {
+app.listen(port, () => {
   console.log(`Server running on http://localhost:8000`);
 });
